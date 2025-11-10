@@ -1,9 +1,25 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
-// Список товаров — можно будет добавлять через админку
+// Простые Card и Button компоненты — без внешних библиотек
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-2xl border border-gray-100 ${className}`}>{children}</div>
+);
+const CardContent = ({ children, className = "" }) => (
+  <div className={className}>{children}</div>
+);
+const Button = ({ children, onClick, type = "button", className = "", size }) => (
+  <button
+    type={type}
+    onClick={onClick}
+    className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
+      size === "sm" ? "text-xs px-3 py-1.5" : ""
+    } ${className}`}
+  >
+    {children}
+  </button>
+);
+
 const initialItems = [
   { name: "GoPro Hero 12 Black", desc: "Экшн-камера с отличной стабилизацией и 5.3K видео.", price: "от 1500₽/сутки", image: "/images/gopro.jpg" },
   { name: "Insta360 X3", desc: "Камера 360° для эффектных видео и Reels.", price: "от 1800₽/сутки", image: "/images/insta360.jpg" },
@@ -29,7 +45,6 @@ export default function EgoRent() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
       <header className="flex justify-between items-center p-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold">EgoRent</h1>
         <nav className="space-x-6 text-gray-700">
@@ -40,7 +55,6 @@ export default function EgoRent() {
         </nav>
       </header>
 
-      {/* Hero */}
       <section className="text-center py-20 px-4 bg-gray-50">
         <motion.h2 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl font-semibold mb-4">
           Аренда техники для съёмок и отдыха в Москве
@@ -51,7 +65,6 @@ export default function EgoRent() {
         <Button className="bg-black text-white rounded-full px-6 py-3 hover:bg-gray-800">Смотреть каталог</Button>
       </section>
 
-      {/* Catalog */}
       <section id="catalog" className="py-20 px-6 max-w-6xl mx-auto">
         <h3 className="text-3xl font-bold mb-10 text-center">Каталог техники</h3>
         {adminMode && (
@@ -82,7 +95,6 @@ export default function EgoRent() {
         </div>
       </section>
 
-      {/* Reviews */}
       <section id="reviews" className="py-20 bg-gray-50 px-6">
         <h3 className="text-3xl font-bold text-center mb-10">Отзывы клиентов</h3>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -91,7 +103,6 @@ export default function EgoRent() {
         </div>
       </section>
 
-      {/* Contact */}
       <section id="contact" className="py-20 px-6 max-w-3xl mx-auto text-center">
         <h3 className="text-3xl font-bold mb-6">Оставить заявку</h3>
         <form className="space-y-4">
